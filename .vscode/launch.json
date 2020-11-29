@@ -1,0 +1,50 @@
+{
+    // IntelliSense を使用して利用可能な属性を学べます。
+    // 既存の属性の説明をホバーして表示します。
+    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "ユニットテスト実行",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd" : "${workspaceRoot}",
+            "env" : {
+            "NODE_ENV" : "development"
+            },
+            "runtimeExecutable" : "nyc",
+            "runtimeArgs": [
+                "mocha",
+                "--timeout=8000"
+            ],
+            "stopOnEntry" : false,
+            "program": "${file}",
+            "console":"integratedTerminal"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "カバレッジ",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd" : "${workspaceRoot}",
+            "env" : {
+            "NODE_ENV" : "development"
+            },
+            "runtimeExecutable" : "nyc",
+            "runtimeArgs": [
+                "--reporter=lcovonly",
+                "--",
+                "mocha",
+                "--timeout=8000",
+            ],
+            "stopOnEntry" : false,
+            "program": "./functions/unitTest.js",
+            "console":"integratedTerminal"
+        }
+    ]
+}
