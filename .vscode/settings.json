@@ -1,0 +1,6 @@
+{
+    "editor.cursorStyle": "block",
+    "editor.formatOnSave": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "prettier.printWidth": 160
+}
