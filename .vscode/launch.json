@@ -40,7 +40,7 @@
                 "--reporter=lcovonly",
                 "--",
                 "mocha",
-                "--timeout=8000",
+                "--timeout=20000",
             ],
             "stopOnEntry" : false,
             "program": "./functions/unitTest.js",

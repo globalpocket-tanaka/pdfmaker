@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 const assert = require("assert");
 const fs = require("fs-extra");
+const path = require("path");
 describe("getTemplateHtml", () => {
   let target = require("./src/getTemplateHtml");
   it("引数なし", (done) => {
@@ -20,8 +21,8 @@ describe("getTemplateHtml", () => {
     }
   });
   it("正常系テスト", (done) => {
-    let result = target("unitTest1");
-    assert(result === "UnitTest{{result}}", "想定外の例外");
+    let result = target("unitTest/1");
+    assert(result === "UnitTest{{result}}\n", "想定外の例外");
     done();
   });
 });
@@ -90,7 +91,7 @@ describe("pdfMaker", () => {
     });
   });
   it("引数templateIdのみ", (done) => {
-    target("unitTest2")
+    target("unitTest/2")
       .then((result) => {
         assert(result);
         fs.writeFile(outPutDirPath + "引数templateIdのみ.pdf", result);
@@ -98,7 +99,7 @@ describe("pdfMaker", () => {
       .then(done, done);
   });
   it("paramあり", (done) => {
-    target("unitTest2", { result: "成功！👍" })
+    target("unitTest/2", { result: "成功！👍" })
       .then((result) => {
         assert(result);
         fs.writeFile(outPutDirPath + "paramあり.pdf", result);
@@ -106,10 +107,32 @@ describe("pdfMaker", () => {
       .then(done, done);
   });
   it("オプションあり", (done) => {
-    target("unitTest2", { result: "成功！👍" }, { format: "A4" })
+    target("unitTest/2", { result: "成功！👍" }, { format: "A4" })
       .then((result) => {
         assert(result);
         fs.writeFile(outPutDirPath + "オプションあり.pdf", result);
+      })
+      .then(done, done);
+  });
+  it("rirekisho1", (done) => {
+    let paramPath = path.join(__dirname, "template/rirekisho/1.test.json");
+    let param = require(paramPath);
+    target("rirekisho/1", param, {
+      format: "A4",
+      scale: 1,
+      printBackground: true,
+      displayHeaderFooter: false,
+      // margin: 0,
+      margin: {
+        top: "0",
+        bottom: "0",
+        left: "0",
+        right: "0",
+      },
+    })
+      .then((result) => {
+        assert(result);
+        fs.writeFile(outPutDirPath + "rirekisho1.pdf", result);
       })
       .then(done, done);
   });
