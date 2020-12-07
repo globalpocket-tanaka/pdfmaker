@@ -2,6 +2,7 @@
 const assert = require("assert");
 const fs = require("fs-extra");
 const path = require("path");
+const sharp = require("sharp");
 describe("getTemplateHtml", () => {
   let target = require("./src/getTemplateHtml");
   it("引数なし", (done) => {
@@ -134,6 +135,36 @@ describe("pdfMaker", () => {
         assert(result);
         fs.writeFile(outPutDirPath + "rirekisho1.pdf", result);
       })
+      .then(done, done);
+  });
+});
+describe("toBase64ByBuffer", () => {
+  let target = require("./src/toBase64ByBuffer");
+  it("引数なし", (done) => {
+    target().catch((error) => {
+      assert(error.message === "引数inBufferには値が必要。", "想定外の例外");
+      done();
+    });
+  });
+  it("jpeg", (done) => {
+    let imgPath = path.join(__dirname, "test/syoumeisyashin_woman.jpg");
+    let buffer = fs.readFileSync(imgPath);
+    target(buffer)
+      .then((result) => {})
+      .then(done, done);
+  });
+  it("png", (done) => {
+    let imgPath = path.join(__dirname, "test/syoumeisyashin_man.png");
+    let buffer = fs.readFileSync(imgPath);
+    target(buffer)
+      .then((result) => {})
+      .then(done, done);
+  });
+  it("heic", (done) => {
+    let imgPath = path.join(__dirname, "test/iphone_photo.heic");
+    let buffer = fs.readFileSync(imgPath);
+    target(buffer)
+      .then((result) => {})
       .then(done, done);
   });
 });

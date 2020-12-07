@@ -18,3 +18,7 @@ https://marketplace.visualstudio.com/items?itemName=brainfit.vscode-coverage-hig
 
 firebase login
 firebase deploy
+
+# 非サポート
+
+heic
