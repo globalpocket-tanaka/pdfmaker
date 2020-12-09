@@ -4,7 +4,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const sharp = require("sharp");
 describe("getTemplateHtml", () => {
-  let target = require("./src/getTemplateHtml");
+  let target = require("../src/getTemplateHtml");
   it("引数なし", (done) => {
     try {
       target();
@@ -28,7 +28,7 @@ describe("getTemplateHtml", () => {
   });
 });
 describe("makePdf", () => {
-  let target = require("./src/makePdf");
+  let target = require("../src/makePdf");
   it("引数なし", (done) => {
     target().catch((error) => {
       assert(error.message === "引数htmlには値が必要。", "想定外の例外");
@@ -51,7 +51,7 @@ describe("makePdf", () => {
   });
 });
 describe("renderHtml", () => {
-  let target = require("./src/renderHtml");
+  let target = require("../src/renderHtml");
   it("引数なし", (done) => {
     try {
       target();
@@ -82,7 +82,7 @@ describe("renderHtml", () => {
   });
 });
 describe("pdfMaker", () => {
-  let target = require("./src/pdfMaker");
+  let target = require("../src/pdfMaker");
   let outPutDirPath = ".out/";
   fs.mkdirSync(outPutDirPath, { recursive: true });
   it("引数なし", (done) => {
@@ -116,7 +116,7 @@ describe("pdfMaker", () => {
       .then(done, done);
   });
   it("rirekisho1", (done) => {
-    let paramPath = path.join(__dirname, "template/rirekisho/1.test.json");
+    let paramPath = path.join(__dirname, "1.test.json");
     let param = require(paramPath);
     target("rirekisho/1", param, {
       format: "A4",
@@ -138,30 +138,30 @@ describe("pdfMaker", () => {
       .then(done, done);
   });
 });
-describe("toBase64ByBuffer", () => {
-  let target = require("./src/toBase64ByBuffer");
+describe("toJpgByImageBuffer", () => {
+  let target = require("../src/toJpgByImageBuffer");
   it("引数なし", (done) => {
     target().catch((error) => {
-      assert(error.message === "引数inBufferには値が必要。", "想定外の例外");
+      assert(error.message === "引数bufferには値が必要。", "想定外の例外");
       done();
     });
   });
   it("jpeg", (done) => {
-    let imgPath = path.join(__dirname, "test/syoumeisyashin_woman.jpg");
+    let imgPath = path.join(__dirname, "syoumeisyashin_woman.jpg");
     let buffer = fs.readFileSync(imgPath);
     target(buffer)
       .then((result) => {})
       .then(done, done);
   });
   it("png", (done) => {
-    let imgPath = path.join(__dirname, "test/syoumeisyashin_man.png");
+    let imgPath = path.join(__dirname, "syoumeisyashin_man.png");
     let buffer = fs.readFileSync(imgPath);
     target(buffer)
       .then((result) => {})
       .then(done, done);
   });
   it("heic", (done) => {
-    let imgPath = path.join(__dirname, "test/iphone_photo.heic");
+    let imgPath = path.join(__dirname, "iphone_photo.heic");
     let buffer = fs.readFileSync(imgPath);
     target(buffer)
       .then((result) => {})

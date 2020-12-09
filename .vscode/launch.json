@@ -43,7 +43,7 @@
                 "--timeout=20000",
             ],
             "stopOnEntry" : false,
-            "program": "./functions/unitTest.js",
+            "program": "./functions/unitTest/unitTest.js",
             "console":"integratedTerminal"
         }
     ]

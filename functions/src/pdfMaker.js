@@ -16,6 +16,7 @@ module.exports = async function (templateId = null, param = {}, option = {}) {
   // テンプレートからHTMLを作成
   html = renderHtml(html, param);
   // HTMLからPDFを作成
-  let result = await makePdf(html, option);
+  let pdf = await makePdf(html, option);
+  let result = pdf.toString("base64");
   return result;
 };
