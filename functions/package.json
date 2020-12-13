@@ -25,7 +25,6 @@
     "mustache": "^4.0.1",
     "path": "^0.12.7",
     "puppeteer": "^5.5.0",
-    "puppeteer-core": "^5.5.0",
     "sharp": "^0.26.3",
     "yarn": "^1.22.10"
   },

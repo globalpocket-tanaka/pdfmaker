@@ -1,8 +1,12 @@
 /* eslint-env mocha */
+/* eslint-disable */
 const assert = require("assert");
 const fs = require("fs-extra");
 const path = require("path");
 const sharp = require("sharp");
+const puppeteer = require("puppeteer");
+let outPutDirPath = ".out/";
+
 describe("getTemplateHtml", () => {
   let target = require("../src/getTemplateHtml");
   it("引数なし", (done) => {
@@ -83,7 +87,6 @@ describe("renderHtml", () => {
 });
 describe("pdfMaker", () => {
   let target = require("../src/pdfMaker");
-  let outPutDirPath = ".out/";
   fs.mkdirSync(outPutDirPath, { recursive: true });
   it("引数なし", (done) => {
     target().catch((error) => {
@@ -95,7 +98,8 @@ describe("pdfMaker", () => {
     target("unitTest/2")
       .then((result) => {
         assert(result);
-        fs.writeFile(outPutDirPath + "引数templateIdのみ.pdf", result);
+        var decode = Buffer(result, "base64");
+        fs.writeFile(outPutDirPath + "引数templateIdのみ.pdf", decode);
       })
       .then(done, done);
   });
@@ -103,7 +107,8 @@ describe("pdfMaker", () => {
     target("unitTest/2", { result: "成功！👍" })
       .then((result) => {
         assert(result);
-        fs.writeFile(outPutDirPath + "paramあり.pdf", result);
+        var decode = Buffer(result, "base64");
+        fs.writeFile(outPutDirPath + "paramあり.pdf", decode);
       })
       .then(done, done);
   });
@@ -111,7 +116,8 @@ describe("pdfMaker", () => {
     target("unitTest/2", { result: "成功！👍" }, { format: "A4" })
       .then((result) => {
         assert(result);
-        fs.writeFile(outPutDirPath + "オプションあり.pdf", result);
+        var decode = Buffer(result, "base64");
+        fs.writeFile(outPutDirPath + "オプションあり.pdf", decode);
       })
       .then(done, done);
   });
@@ -133,7 +139,34 @@ describe("pdfMaker", () => {
     })
       .then((result) => {
         assert(result);
-        fs.writeFile(outPutDirPath + "rirekisho1.pdf", result);
+        var decode = Buffer(result, "base64");
+        fs.writeFile(outPutDirPath + "rirekisho1.pdf", decode);
+      })
+      .then(done, done);
+  });
+  fs.mkdirSync(outPutDirPath + "rirekisho/", { recursive: true });
+  let targetName = "rirekisho/a4_jis";
+  it(targetName, (done) => {
+    let paramPath = path.join(__dirname, targetName + ".test.json");
+    let param = require(paramPath);
+    target(targetName, param, {
+      format: "A3",
+      scale: 1,
+      landscape: true,
+      printBackground: true,
+      displayHeaderFooter: false,
+      // margin: 0,
+      margin: {
+        top: "0",
+        bottom: "0",
+        left: "0",
+        right: "0",
+      },
+    })
+      .then((result) => {
+        assert(result);
+        var decode = Buffer(result, "base64");
+        fs.writeFile(outPutDirPath + targetName + ".pdf", decode);
       })
       .then(done, done);
   });
