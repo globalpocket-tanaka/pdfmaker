@@ -1,7 +1,7 @@
 const assert = require("assert");
 const functions = require("firebase-functions");
 const runtimeOpts = {
-  timeoutSeconds: 10,
+  timeoutSeconds: 30,
   memory: "1GB",
 };
 /**
@@ -14,6 +14,7 @@ exports.pdfMaker = functions
   .runWith(runtimeOpts)
   .region("asia-northeast1")
   .https.onCall(async (data, context) => {
+    console.log("----------------------------------------------------------------------");
     ////////////////////////////////////////////
     // 準備
     ////////////////////////////////////////////
@@ -43,9 +44,11 @@ exports.pdfMaker = functions
     try {
       let result = await pdfMaker(templateId, param, option);
       functions.logger.info("pdfmaker Finish!", { structuredData: true });
+      console.log("----------------------------------------------------------------------");
       return result;
     } catch (error) {
       functions.logger.info("pdfmaker Failed!", { structuredData: true });
+      console.log("----------------------------------------------------------------------");
       functions.logger.error(error);
       throw error;
     }

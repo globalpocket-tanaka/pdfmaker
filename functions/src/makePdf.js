@@ -11,28 +11,29 @@ const path = require("path");
 module.exports = async function (html = null, option = {}, isChromium = false) {
   // 必須チェック
   assert(html !== null, "引数htmlには値が必要。");
-  let fontDirPath = path.join(__dirname, "../fonts/");
   let puppeteer = null;
   if (chromium.headless || isChromium) {
     puppeteer = chromium.puppeteer;
   } else {
     puppeteer = origin_puppeteer;
   }
-  /// NotoColorEmoji.ttf ///////////////////////////////////////////////
-  // let emojiFontPath = path.join(fontDirPath, "NotoColorEmoji.ttf");
-  // console.log(emojiFontPath);
-  // console.log(await chromium.font(emojiFontPath));
-  //////////////////////////////////////////////////////////////////////
-  /// NotoSansCJKjp-Regular.ttf ////////////////////////////////////////
-  let jpFontPath = path.join(fontDirPath, "NotoSansCJKjp-Regular.ttf");
-  console.log(jpFontPath);
-  console.log(await chromium.font(jpFontPath));
-  //////////////////////////////////////////////////////////////////////
   let exePath = await chromium.executablePath;
-  console.log(exePath);
+  // console.log(exePath);
   let browser = await puppeteer.launch({
     // ignoreDefaultArgs: ["--disable-extensions"],
-    args: chromium.args,
+    args: [
+      ...chromium.args,
+      "--disable-web-security",
+      "--lang=ja",
+      "--disable-web-security",
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--disable-setuid-sandbox",
+      "--no-first-run",
+      "--no-sandbox",
+      "--no-zygote",
+      "--single-process",
+    ],
     defaultViewport: chromium.defaultViewport,
     executablePath: exePath,
     headless: true,
