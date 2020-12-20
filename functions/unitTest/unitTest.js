@@ -162,104 +162,53 @@ describe(targetFileName, () => {
   /// テスト処理 ココまで /////////////
 });
 /////////////////////////////////////////////////////////////////////////
-// targetFileName = "pdfMaker";
-// describe(targetFileName, () => {
-//   /// テスト対象 ////////////////////
-//   let target = require(path.join(functionsSrcDir, targetFileName));
-//   fs.mkdirSync(outPutDirPath, { recursive: true });
-//   /// テスト処理 ////////////////////
-//   it("引数なし", (done) => {
-//     target().catch((error) => {
-//       assert(error.message === "引数templateIdには値が必要。", "想定外の例外");
-//       done();
-//     });
-//   });
-//   /// テスト処理 ココまで /////////////
-//   /// テスト処理 ////////////////////
-//   it("引数templateIdのみ", (done) => {
-//     target("unitTest/2")
-//       .then((result) => {
-//         assert(result);
-//         var decode = Buffer(result, "base64");
-//         fs.writeFile(outPutDirPath + "引数templateIdのみ.pdf", decode);
-//       })
-//       .then(done, done);
-//   });
-//   /// テスト処理 ココまで /////////////
-//   /// テスト処理 ////////////////////
-//   it("paramあり", (done) => {
-//     target("unitTest/2", { result: "成功！👍" })
-//       .then((result) => {
-//         assert(result);
-//         var decode = Buffer(result, "base64");
-//         fs.writeFile(outPutDirPath + "paramあり.pdf", decode);
-//       })
-//       .then(done, done);
-//   });
-//   /// テスト処理 ココまで /////////////
-//   /// テスト処理 ////////////////////
-//   it("オプションあり", (done) => {
-//     target("unitTest/2", { result: "成功！👍" }, { format: "A4" })
-//       .then((result) => {
-//         assert(result);
-//         var decode = Buffer(result, "base64");
-//         fs.writeFile(outPutDirPath + "オプションあり.pdf", decode);
-//       })
-//       .then(done, done);
-//   });
-//   /// テスト処理 ココまで /////////////
-//   /// テスト処理 ////////////////////
-//   it("rirekisho1", (done) => {
-//     let paramPath = path.join(__dirname, "1.test.json");
-//     let param = require(paramPath);
-//     target("rirekisho/1", param, {
-//       format: "A4",
-//       scale: 1,
-//       printBackground: true,
-//       displayHeaderFooter: false,
-//       // margin: 0,
-//       margin: {
-//         top: "0",
-//         bottom: "0",
-//         left: "0",
-//         right: "0",
-//       },
-//     })
-//       .then((result) => {
-//         assert(result);
-//         var decode = Buffer(result, "base64");
-//         fs.writeFile(outPutDirPath + "rirekisho1.pdf", decode);
-//       })
-//       .then(done, done);
-//   });
-//   fs.mkdirSync(outPutDirPath + "rirekisho/", { recursive: true });
-//   let targetName = "rirekisho/a4_jis";
-//   it(targetName, (done) => {
-//     let paramPath = path.join(__dirname, targetName + ".test.json");
-//     let param = require(paramPath);
-//     target(targetName, param, {
-//       format: "A3",
-//       scale: 1,
-//       landscape: true,
-//       printBackground: true,
-//       displayHeaderFooter: false,
-//       // margin: 0,
-//       margin: {
-//         top: "0",
-//         bottom: "0",
-//         left: "0",
-//         right: "0",
-//       },
-//     })
-//       .then((result) => {
-//         assert(result);
-//         var decode = Buffer(result, "base64");
-//         fs.writeFile(outPutDirPath + targetName + ".pdf", decode);
-//       })
-//       .then(done, done);
-//   });
-//   /// テスト処理 ココまで /////////////
-// });
+targetFileName = "pdfMaker";
+describe(targetFileName, () => {
+  /// テスト対象 ////////////////////
+  let target = require(path.join(functionsSrcDir, targetFileName));
+  fs.mkdirSync(outPutDirPath, { recursive: true });
+  /// テスト処理 ////////////////////
+  it("引数なし", (done) => {
+    target().catch((error) => {
+      assert(error.message === "引数templateIdには値が必要。", "想定外の例外");
+      done();
+    });
+  });
+  /// テスト処理 ココまで /////////////
+  /// テスト処理 ////////////////////
+  it("引数templateIdのみ", (done) => {
+    target("unitTest/2")
+      .then((result) => {
+        assert(result);
+        var decode = Buffer(result, "base64");
+        fs.writeFile(outPutDirPath + "引数templateIdのみ.pdf", decode);
+      })
+      .then(done, done);
+  });
+  /// テスト処理 ココまで /////////////
+  /// テスト処理 ////////////////////
+  it("paramあり", (done) => {
+    target("unitTest/2", { result: "成功！👍" })
+      .then((result) => {
+        assert(result);
+        var decode = Buffer(result, "base64");
+        fs.writeFile(outPutDirPath + "paramあり.pdf", decode);
+      })
+      .then(done, done);
+  });
+  /// テスト処理 ココまで /////////////
+  /// テスト処理 ////////////////////
+  it("オプションあり", (done) => {
+    target("unitTest/2", { result: "成功！👍" }, { format: "A4" })
+      .then((result) => {
+        assert(result);
+        var decode = Buffer(result, "base64");
+        fs.writeFile(outPutDirPath + "オプションあり.pdf", decode);
+      })
+      .then(done, done);
+  });
+  /// テスト処理 ココまで /////////////
+});
 /////////////////////////////////////////////////////////////////////////
 /**
  * テンプレートテスト。pdfMakerの結合テスト。テンプレートからPDFを作成する。
