@@ -12,7 +12,7 @@ module.exports = async function (buffer = null) {
     let result = buffer.toString("base64");
     return result;
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     buffer = await convert({
       buffer: buffer, // the HEIC file buffer
       format: "JPEG", // output format

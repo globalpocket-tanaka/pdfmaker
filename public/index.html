@@ -220,7 +220,7 @@
     };
     entity.data = {};
     // Initialize Cloud Functions through Firebase
-    $.getJSON("rirekisho_a4_jis.json", (readed) => {
+    $.getJSON("default_param/rirekisho/a4_jis.json", (readed) => {
       entity.data = readed;
       new Vue(entity);
     });
